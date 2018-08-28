@@ -85,7 +85,7 @@ enum ret_codes lookup_transitions(enum state_codes cur_state, enum ret_codes rc)
     if(i == STATE_TRANSITIONS_ARR_SIZE)
     {
         printf("Could not found matching dst state!\n");
-        assert(i != sizeof(state_transitions)/sizeof(struct transition));
+        assert(i != STATE_TRANSITIONS_ARR_SIZE);
     }
 
     return state_transitions[i].dst_state;
