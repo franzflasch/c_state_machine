@@ -45,7 +45,7 @@ static uint32_t state_machine_execute(state_machine_td *state_machine)
     state_machine_ret_code rc = 0;
     if(state_machine->current_state->state_func == NULL)
     {
-        printf("We got in a null state! Will return to avoid undefined behavior\n");
+        printf("State function not defined! Will return to avoid undefined behavior\n");
         return 0;
     }
 
