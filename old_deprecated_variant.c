@@ -20,27 +20,27 @@ enum ret_codes { ok, fail, repeat};
 */
 int entry_state(void) 
 {
-    printf("we are in %s\n", __FUNCTION__); 
+    printf("we are in %s\n", __func__); 
     return ok; 
 }
 
 int foo_state(void) 
 { 
-    printf("we are in %s\n", __FUNCTION__); 
+    printf("we are in %s\n", __func__); 
     return ok; 
-};
+}
 
 int bar_state(void) 
 { 
-    printf("we are in %s\n", __FUNCTION__); 
+    printf("we are in %s\n", __func__); 
     return repeat; 
-};
+}
 
 int exit_state(void) 
 { 
-    printf("we are in %s\n", __FUNCTION__); 
+    printf("we are in %s\n", __func__); 
     return ok; 
-};
+}
 
 /* array and enum below must be in sync! */
 int (* state[])(void) = { entry_state, foo_state, bar_state, exit_state};
@@ -68,7 +68,7 @@ struct transition state_transitions[] = {
 #define ENTRY_STATE entry
 #define EXIT_STATE end
 
-enum ret_codes lookup_transitions(enum state_codes cur_state, enum ret_codes rc)
+enum state_codes lookup_transitions(enum state_codes cur_state, enum ret_codes rc)
 {
     int i = 0;
 
