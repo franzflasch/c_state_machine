@@ -46,7 +46,7 @@ static uint32_t state_machine_execute(state_machine_td *state_machine)
     if(state_machine->current_state->state_func == NULL)
     {
         printf("State function not defined! Will return to avoid undefined behavior\n");
-        return 0;
+        return STATE_MACHINE_ERR;
     }
 
     printf("Executing state %s\n", state_machine->current_state->state_name);
@@ -56,14 +56,13 @@ static uint32_t state_machine_execute(state_machine_td *state_machine)
     {
         state_machine->current_state = state_machine->current_state->next_state;
     }
-
-    if(rc == fail)
+    else if(rc == fail)
     {
         printf("###### State func returned FAIL ######\n");
         state_machine->current_state = state_machine->current_state->fail_state;
     }
 
-    return 0;
+    return (rc == ok) ? STATE_MACHINE_OK : STATE_MACHINE_ERR;
 }
 
 uint32_t state_machine_init(state_machine_td *state_machine, state_machine_state_td *entry_state)
