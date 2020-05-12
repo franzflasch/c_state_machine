@@ -10,10 +10,10 @@
     is not possible. If some states are not needed for e.g. fail state,
     then you have to define a speficic null_state as a place holder.
  */
-#define ADD_STATE(_name, _state_func, _next_state, _fail_state) \
+#define ADD_STATE(_name, _next_state, _fail_state) \
     extern state_machine_state_td _next_state; \
     extern state_machine_state_td _fail_state; \
-    state_machine_state_td _name = { #_name, _state_func, &_next_state, &_fail_state }
+    state_machine_state_td _name = { #_name, _name ##_func, &_next_state, &_fail_state }
 
 typedef enum state_machine_ret_code_enum { 
     ok, 
@@ -129,11 +129,11 @@ static int null_state_func(void)
    States can be created easily and it also ensures that all states have to be declared and defined, so
    a real NULL state is actually not possible, thats why we use a special "null_state" as placeholder, if needed.
  */
-ADD_STATE(entry_state, entry_state_func, foo_state, null_state);
-ADD_STATE(foo_state, foo_state_func, entry_state, bar_state);
-ADD_STATE(bar_state, bar_state_func, entry_state, fail_state);
-ADD_STATE(fail_state, fail_state_func, entry_state, null_state);
-ADD_STATE(null_state, null_state_func, null_state, null_state);
+ADD_STATE(entry_state, foo_state, null_state);
+ADD_STATE(foo_state, entry_state, bar_state);
+ADD_STATE(bar_state, entry_state, fail_state);
+ADD_STATE(fail_state, entry_state, null_state);
+ADD_STATE(null_state, null_state, null_state);
 
 int main(int argc, char *argv[]) 
 {
